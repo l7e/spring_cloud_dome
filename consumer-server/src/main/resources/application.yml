@@ -6,4 +6,8 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:10086/eureka/
+      defaultZone: http://localhost:10086/eureka/,http://localhost:10087/eureka/
+
+user-server:    //服务名称
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
