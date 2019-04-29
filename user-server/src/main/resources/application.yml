@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: user-server
+  datasource:
+    url: jdbc:mysql://192.168.10.10:3306/jdbc
+    username: homestead
+    password: secret
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka/
+mybatis:
+  type-aliases-package: com.like.pojo
