@@ -3,9 +3,11 @@ package com.like;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 //@EnableDiscoveryClient
 //@EnableCircuitBreaker
 
-@SpringBootApplication      //可以使用该注解替代上面的三个注解
+@EnableFeignClients
+@SpringCloudApplication //可以使用该注解替代上面的三个注解
 public class ConsumerServer
 {
     public static void main(String[] args)

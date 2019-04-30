@@ -1,8 +1,11 @@
 package com.like.controller;
 
 
+import com.like.client.UserClient;
 import com.like.pojo.User;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -17,13 +20,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@DefaultProperties(defaultFallback = "defaultCallBack")
 public class UserController
 {
     @Autowired
-    private RestTemplate restTemplate;
+    private UserClient userClient;
 
-    @Autowired
-    private DiscoveryClient discoveryClient;
+//    @Autowired
+//    private RestTemplate restTemplate;
+//
+//    @Autowired
+//    private DiscoveryClient discoveryClient;
 
 //    @Autowired
 //    private RibbonLoadBalancerClient client;
@@ -51,18 +58,74 @@ public class UserController
 //        return user;
 //    }
 
+    /**
+     *
+     * 服务降级相关
+     *
+     */
+
+//    @GetMapping("/{id}")
+//    @HystrixCommand(fallbackMethod = "fallCallback")
+//    public String index(@PathVariable("id") Long id)
+//    {
+//        String url = "http://user-server/user/";
+//        return restTemplate.getForObject(url + id, String.class);
+//    }
+//
+//    public String fallCallback(Long id)
+//    {
+//        return "服务器压力很大1";
+//    }
+
+// //   @GetMapping("/{id}")
+////    @HystrixCommand(commandProperties = {
+////            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000") //指定当前降级时间
+////    })
+//    @HystrixCommand
+//    public String index(@PathVariable("id") Long id)
+//    {
+//        String url = "http://user-server/user/";
+//        return restTemplate.getForObject(url + id, String.class);
+//    }
+//
+//    public String defaultCallBack()
+//    {
+//        return "服务器压力很大2";
+//    }
+
+    /**
+     *
+     * 熔断相关
+     *
+     */
+//    @GetMapping("/{id}")
+//    @HystrixCommand(commandProperties = {
+//            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),   //最近请求的次数
+//            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), //休眠时间
+//            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60")  //错误百分比
+//    })
+//    public String index(@PathVariable("id") Long id)
+//    {
+//        if (id % 2 == 0) {
+//            throw new RuntimeException("");
+//        }
+//        String url = "http://user-server/user/";
+//        return restTemplate.getForObject(url + id, String.class);
+//    }
+//
+//    public String defaultCallBack()
+//    {
+//        return "服务器压力很大2";
+//    }
+
+
+    /**
+     * feign相关
+     */
 
     @GetMapping("/{id}")
-    @HystrixCommand(fallbackMethod = "fallCallback")
     public String index(@PathVariable("id") Long id)
     {
-        String url = "http://user-server/user/";
-        return restTemplate.getForObject(url + id, String.class);
+        return userClient.queryById(id);
     }
-
-    public String fallCallback(Long id)
-    {
-        return "服务器压力很大";
-    }
-
 }
