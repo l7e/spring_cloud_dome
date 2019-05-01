@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@FeignClient("user-server")  //服务名称
+@FeignClient(value = "user-server",fallback = UserClientImpl.class)  //服务名称
 public interface UserClient
 {
     @GetMapping("/user/{id}")
