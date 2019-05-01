@@ -20,11 +20,11 @@ public class UserController
     public User index(@PathVariable("id") Long id)
     {
 
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000L);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return userServer.queryById(id);
     }
 }

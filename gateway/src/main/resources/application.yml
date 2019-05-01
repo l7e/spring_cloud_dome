@@ -3,3 +3,33 @@ server:
 spring:
   application:
     name: api-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+
+#zuul:
+#  routes:
+#    haha:     #key可以随便写
+#      path: /user-service/**    #匹配user-service为前缀的所有路径,并且把**部分的路径转发到下面的url
+#      url: http://127.0.0.1:8082  #匹配user为前缀的所有路径转发到此地址
+
+#zuul:
+#  routes:
+#    haha:     #key可以随便写
+#      path: /user-service/**    #匹配user-service为前缀的所有路径,并且把**部分的路径转发到下面的服务
+#      serviceId: consumer-server   #这里是服务的ID
+
+
+#zuul:
+#  prefix: /api   #路由前缀
+#  strip-prefix: false
+#  routes:
+#    user-server: /user/**
+#    consumer-server: /user/**
+
+
+#  ignored-services:
+#    - consumer-server
+#    - consumer-server
